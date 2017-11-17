@@ -14,4 +14,12 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+
+    @Test
+    fun calculate_isCorrect(){
+        var a = Calculation(26000,MaritalStatus.SINGLE,EmploymentStatus.EMPLOYEE)
+        assertEquals(5,a.calculateTotalTax())
+    }
+
+
 }

@@ -32,11 +32,9 @@ class MainActivity : AppCompatActivity() {
     private fun calculateTax(){
         val grossIncome : Int = grossIncomeTxt.text.toString().toInt()
 
-        val calculate = Calculation(grossIncome,MaritialStatus.SINGLE)
+        val calculate = Calculation(grossIncome,MaritalStatus.SINGLE,EmploymentStatus.EMPLOYEE)
         calculate.calculateTotalTax()
-        tvTax.setText(calculate.taxToPay.toString())
-
-
+        tvTax.setText(calculate.calculateTotalTax().toString())
 
 
 
