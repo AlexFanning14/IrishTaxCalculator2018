@@ -28,6 +28,12 @@ object ConstantValues2018 {
 
 
     const val WEEKS_IN_YEAR = 52
+}
 
+enum class MaritalStatus{
+    SINGLE,MARRIED_ONE_WORKING,MARRIED_TWO_WORKING,LONE_PARENT, WIDOWED
+}
 
+enum class EmploymentStatus{
+    EMPLOYER,EMPLOYEE
 }

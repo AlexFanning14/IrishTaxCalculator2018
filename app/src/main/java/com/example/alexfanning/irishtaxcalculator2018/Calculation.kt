@@ -107,10 +107,3 @@ data class Calculation(val grossPay: Int,val marStatus: MaritalStatus, val emplS
     }
 }
 
- enum class MaritalStatus{
-    SINGLE,MARRIED, WIDOWED
-}
-
-enum class EmploymentStatus{
-    EMPLOYER,EMPLOYEE
-}

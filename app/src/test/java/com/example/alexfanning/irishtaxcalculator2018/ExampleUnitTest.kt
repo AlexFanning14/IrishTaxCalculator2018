@@ -17,7 +17,7 @@ class ExampleUnitTest {
 
     @Test
     fun calculate_isCorrect(){
-        var a = Calculation(26000,MaritalStatus.SINGLE,EmploymentStatus.EMPLOYEE)
+        var a = Calculation(100000,MaritalStatus.SINGLE,EmploymentStatus.EMPLOYEE)
         assertEquals(5,a.calculateTotalTax())
     }
 

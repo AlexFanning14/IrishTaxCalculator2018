@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Irish Tax Calculator 2018</string>
+
+    <string-array name="drawer_fragment_items" translatable="false">
+        <item>@string/nav_drawer_status</item>
+        <item>@string/nav_drawer_income</item>
+        <item>@string/nav_drawer_benefits</item>
+        <item>@string/nav_drawer_submit</item>
+    </string-array>
+
+    <string name="nav_drawer_status">Status</string>
+    <string name="nav_drawer_income">Income</string>
+    <string name="nav_drawer_benefits">Benefits in Kind</string>
+    <string name="nav_drawer_submit">Submit</string>
+
+
+
+
 </resources>
