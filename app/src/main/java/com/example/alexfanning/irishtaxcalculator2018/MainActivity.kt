@@ -9,10 +9,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.example.alexfanning.irishtaxcalculator2018.fragments.BenefitFragment
-import com.example.alexfanning.irishtaxcalculator2018.fragments.IncomeFragment
-import com.example.alexfanning.irishtaxcalculator2018.fragments.ResultsFragment
-import com.example.alexfanning.irishtaxcalculator2018.fragments.StatusFragment
+import android.view.View
+import com.example.alexfanning.irishtaxcalculator2018.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -22,13 +20,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        
+
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-        nav_view.setNavigationItemSelectedListener(this)
+        val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
+        navigationView.setNavigationItemSelectedListener(this)
+
+        if (savedInstanceState?.get("navPos")== null){
+            val menuItem = navigationView.menu.findItem(R.id.nav_status) as MenuItem
+            menuItem.isChecked = true
+            onNavigationItemSelected(menuItem)
+        }else{
+            val menuId : Int = savedInstanceState.getInt("navPos")
+            val menuItem = navigationView.menu.findItem(menuId) as MenuItem
+            menuItem.isChecked = true
+            onNavigationItemSelected(menuItem)
+        }
     }
 
     override fun onBackPressed() {
@@ -50,32 +60,62 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.action_settings ->{
+                supportFragmentManager.beginTransaction().replace(R.id.content_frame,SettingsFragment()).commit()
+                setTitle("Settings")
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        sNavId = item.itemId
+        return navSelect()
+
+    }
+
+    private fun navSelect(): Boolean{
         var fragment : android.support.v4.app.Fragment? = null
-        when (item.itemId) {
-            R.id.nav_status -> {
+        var title : String = ""
+        when (sNavId) {
+            0,R.id.nav_status -> {
                 fragment = StatusFragment()
+                title = getString(R.string.nav_drawer_status)
             }
             R.id.nav_income -> {
                 fragment = IncomeFragment()
+                title = getString(R.string.nav_drawer_income)
             }
             R.id.nav_benefit -> {
                 fragment = BenefitFragment()
+                title = getString(R.string.nav_drawer_benefits)
             }
             R.id.nav_results -> {
                 fragment = ResultsFragment()
+                title = getString(R.string.nav_drawer_submit)
             }
         }
-        val frag = supportFragmentManager.beginTransaction().replace(R.id.content_frame,fragment).commit()
-
-
+        supportFragmentManager.beginTransaction().replace(R.id.content_frame,fragment).commit()
+        setTitle(title)
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putInt("navPos", sNavId)
+    }
+
+
+
+
+    companion object {
+        var sNavId : Int = 0
+    }
+
 }
+
+
+
