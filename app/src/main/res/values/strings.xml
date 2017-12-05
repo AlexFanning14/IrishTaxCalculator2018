@@ -19,8 +19,44 @@
 
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Spinner Arrays-->
+    <string-array name="spinner_employment_array">
+        <item>PAYE employee</item>
+        <item>Self Employed</item>
+        <item>Public Servant</item>
+        <item>Select Employment Status</item>
+    </string-array>
+
+    <string-array name="spinner_marital_array">
+        <item>Single</item>
+        <item>Widowed</item>
+        <item>Married(1 spouse working)</item>
+        <item>Married Both Working</item>
+        <item>Lone Parent</item>
+        <item>Select Marital Status</item>
+    </string-array>
+
+    <string-array name="spinner_age_array">
+        <item>Under 65</item>
+        <item>65</item>
+        <item>65-69</item>
+        <item>70+</item>
+        <item>Select Age</item>
+    </string-array>
+
+
+    <string-array name="spinner_children_array">
+        <item>None</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>Select Number of Children</item>
+    </string-array>
 
 
 </resources>

@@ -99,7 +99,7 @@ data class Calculation(val grossPay: Int,val marStatus: MaritalStatus, val emplS
             taxCreditTotal += ConstantValues2018.TAX_CRED_SINGLE
         }
 
-        if (emplStatus == EmploymentStatus.EMPLOYEE){
+        if (emplStatus == EmploymentStatus.PAYE_WORKER){
             taxCreditTotal += ConstantValues2018.TAX_CRED_EMPLOYED
         }
 

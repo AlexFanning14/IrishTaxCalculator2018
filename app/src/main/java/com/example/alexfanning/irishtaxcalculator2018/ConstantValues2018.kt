@@ -35,5 +35,5 @@ enum class MaritalStatus{
 }
 
 enum class EmploymentStatus{
-    EMPLOYER,EMPLOYEE
+    PAYE_WORKER,EMPLOYER,PUBLIC_SERVANT
 }

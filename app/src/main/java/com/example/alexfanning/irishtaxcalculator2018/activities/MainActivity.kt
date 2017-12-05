@@ -1,8 +1,7 @@
-package com.example.alexfanning.irishtaxcalculator2018
+package com.example.alexfanning.irishtaxcalculator2018.activities
 
-import android.app.Fragment
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -10,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.example.alexfanning.irishtaxcalculator2018.R
 import com.example.alexfanning.irishtaxcalculator2018.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
 
         if (savedInstanceState?.get("navPos")== null){
-            val menuItem = navigationView.menu.findItem(R.id.nav_status) as MenuItem
+            val menuItem = navigationView.menu.findItem(R.id.nav_basic_calculater) as MenuItem
             menuItem.isChecked = true
             onNavigationItemSelected(menuItem)
         }else{
@@ -40,6 +40,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             onNavigationItemSelected(menuItem)
         }
     }
+
+
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -61,8 +64,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.action_settings ->{
-                supportFragmentManager.beginTransaction().replace(R.id.content_frame,SettingsFragment()).commit()
-                setTitle("Settings")
+
+                startActivity(Intent(this,SettingsActivity::class.java))
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -79,7 +82,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var fragment : android.support.v4.app.Fragment? = null
         var title : String = ""
         when (sNavId) {
-            0,R.id.nav_status -> {
+            0, R.id.nav_basic_calculater -> {
+                fragment = BasicFragment()
+                title = "Basic Calculator"
+            }
+            R.id.nav_status -> {
                 fragment = StatusFragment()
                 title = getString(R.string.nav_drawer_status)
             }
@@ -105,10 +112,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        outState?.putInt("navPos", sNavId)
+        outState?.putInt("navId", sNavId)
     }
 
+    override fun onStop() {
+        super.onStop()
+        val b = Bundle()
+        b.putInt("navId", sNavId)
+        intent.putExtras(b)
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
+        val b = intent.extras
+
+
+        if (b != null){
+            val navId = b.getInt("navId")
+            val menuItem = navigationView.menu.findItem(navId) as MenuItem
+            menuItem.isChecked = true
+            onNavigationItemSelected(menuItem)
+        }
+    }
 
 
     companion object {

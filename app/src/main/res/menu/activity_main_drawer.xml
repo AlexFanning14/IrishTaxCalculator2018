@@ -3,24 +3,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+    <item android:title="Basic Calculator">
+        <menu>
+            <item
+                android:id="@+id/nav_basic_calculater"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="Basic Details" />
+        </menu>
+
+
+    </item>
+
+
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_status"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Status" />
-        <item
-            android:id="@+id/nav_income"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Income &amp; Allowances" />
-        <item
-            android:id="@+id/nav_benefit"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Benefit in Kind" />
-        <item
-            android:id="@+id/nav_results"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Calculate Results" />
+        <item android:title="Advanced Calculator">
+            <menu>
+
+                <item
+                    android:id="@+id/nav_status"
+                    android:icon="@drawable/ic_menu_camera"
+                    android:title="Status" />
+                <item
+                    android:id="@+id/nav_income"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="Income &amp; Allowances" />
+                <item
+                    android:id="@+id/nav_benefit"
+                    android:icon="@drawable/ic_menu_slideshow"
+                    android:title="Benefit in Kind" />
+            </menu>
+        </item>
     </group>
+
+    <item android:title="Results">
+        <menu>
+            <item
+                android:id="@+id/nav_results"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="View Results" />
+        </menu>
+
+
+    </item>
+
 
 
 
