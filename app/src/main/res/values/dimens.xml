@@ -9,4 +9,11 @@
     <dimen name="zero_dp">0dp</dimen>
 
 
+    <dimen name="margin_standard">8dp</dimen>
+
+    <!--Basic Fragment-->
+    <dimen name="basic_item_height">50dp</dimen>
+
+
+
 </resources>

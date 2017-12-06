@@ -15,7 +15,7 @@ object ConstantValues2018 {
     const val TAX_CRED_SINGLE = 1650
     const val TAX_CRED_EMPLOYED = 1650
 
-    val USC_VALS :Map<Long,Float> = mapOf<Long,Float>(0L to .005f,12012L to .02f,19372L to .0475f,70044L to .08f)
+    val USC_VALS: Map<Long, Float> = mapOf<Long, Float>(0L to .005f, 12012L to .02f, 19372L to .0475f, 70044L to .08f)
 
 
     const val PRSI_PERCENT = .04f
@@ -30,10 +30,34 @@ object ConstantValues2018 {
     const val WEEKS_IN_YEAR = 52
 }
 
-enum class MaritalStatus{
-    SINGLE,MARRIED_ONE_WORKING,MARRIED_TWO_WORKING,LONE_PARENT, WIDOWED
+enum class MaritalStatus(val index: Int) {
+    SINGLE(0), MARRIED_ONE_WORKING(1), MARRIED_TWO_WORKING(2), LONE_PARENT(3), WIDOWED(4);
+
+    companion object {
+        fun from(search: Int): MaritalStatus = requireNotNull(values().find { it.index == search })
+    }
 }
 
-enum class EmploymentStatus{
-    PAYE_WORKER,EMPLOYER,PUBLIC_SERVANT
+enum class EmploymentStatus(val index: Int) {
+    PAYE_WORKER(0), SELF_EMPLOYED(1), PUBLIC_SERVANT(2);
+
+    companion object {
+        fun from(search: Int): EmploymentStatus = requireNotNull(values().find { it.index == search })
+    }
+}
+
+enum class AgeStatus(val index: Int) {
+    UNDER_65(0), _65(1), _65_69(2), OVER_69(3);
+
+    companion object {
+        fun from(search: Int): AgeStatus = requireNotNull(values().find { it.index == search })
+    }
+}
+
+enum class ChildStatus(val index: Int) {
+    NONE(0), _1(1), _2(2), _3(3),_4(4), _5(5), _6(6),_7(7), _8(8);
+
+    companion object {
+        fun from(search: Int): ChildStatus = requireNotNull(values().find { it.index == search })
+    }
 }

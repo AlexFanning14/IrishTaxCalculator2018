@@ -8,7 +8,14 @@ import kotlin.collections.HashMap
 /**
  * Created by alex.fanning on 16/11/2017.
  */
-data class Calculation(val grossPay: Int,val marStatus: MaritalStatus, val emplStatus: EmploymentStatus) {
+data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val marStatus: MaritalStatus,val ageStatus: AgeStatus, val childStatus: ChildStatus, val hasMedCard: Boolean ) {
+
+    constructor(grossPay: Int,emplStatus: EmploymentStatus, marStatus: MaritalStatus,
+                ageStatus: AgeStatus, childStatus: ChildStatus, hasMedCard: Boolean, _spouseEmploymentStatus: EmploymentStatus,
+                _spouseSal :Int) : this(grossPay,emplStatus,marStatus,ageStatus,childStatus,hasMedCard) {
+        val spouseEmploymentStatus = _spouseEmploymentStatus
+        val spouseSal = _spouseSal
+    }
 
     var incomeTax : Int = 0
     var PRSI : Int = 0
@@ -40,8 +47,6 @@ data class Calculation(val grossPay: Int,val marStatus: MaritalStatus, val emplS
         }
 
         val totalTax = incomeTax + USC + PRSI
-
-
         netIncome = grossPay - totalTax
 
         return netIncome
@@ -102,7 +107,6 @@ data class Calculation(val grossPay: Int,val marStatus: MaritalStatus, val emplS
         if (emplStatus == EmploymentStatus.PAYE_WORKER){
             taxCreditTotal += ConstantValues2018.TAX_CRED_EMPLOYED
         }
-
 
     }
 }

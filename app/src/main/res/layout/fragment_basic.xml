@@ -1,85 +1,93 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:weightSum="7"
     tools:context="com.example.alexfanning.irishtaxcalculator2018.fragments.BasicFragment">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/zero_dp"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:id="@+id/et_gross_sal"
-        android:hint="Gross Pay" />
-
-
-
-    <Spinner
-        android:gravity="center"
-        android:id="@+id/basic_spinner_worker_status"
-        android:layout_width="match_parent"
-        android:background="@color/colorBackground"
-        android:layout_weight="1"
-        android:layout_height="@dimen/zero_dp" />
-
-    <Spinner
-        android:gravity="center"
-        android:id="@+id/basic_spinner_marital_status"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="@dimen/zero_dp" />
-
-    <Spinner
-        android:gravity="center"
-        android:id="@+id/basic_spinner_age"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="@dimen/zero_dp" />
-
-    <Spinner
-        android:gravity="center"
-        android:id="@+id/basic_spinner_children"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="@dimen/zero_dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/zero_dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:weightSum="2"
-        >
-
-    <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Do you have a full medical card?"
-        />
+        android:orientation="vertical">
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:id="@+id/basic_chk_box_med_card"
-        android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/et_gross_sal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:hint="Gross Pay" />
+
+
+        <Spinner
+            android:id="@+id/basic_spinner_worker_status"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center" />
+
+        <Spinner
+            android:id="@+id/basic_spinner_marital_status"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center" />
+
+        <EditText
+            android:id="@+id/et_gross_sal_spouse"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:hint="Spouse Gross Pay"
+            android:visibility="gone" />
+
+        <Spinner
+            android:id="@+id/basic_spinner_worker_status_spouse"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:visibility="gone" />
+
+        <Spinner
+            android:id="@+id/basic_spinner_age"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center" />
+
+        <Spinner
+            android:id="@+id/basic_spinner_children"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Do you have a full medical card?" />
+
+            <CheckBox
+                android:id="@+id/basic_chk_box_med_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+
+
+        <Button
+            android:id="@+id/basic_btn_calculate"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:text="Calculate" />
+
 
     </LinearLayout>
-    <Button
-        android:layout_width="match_parent"
-        android:id="@+id/basic_btn_calculate"
-        android:layout_weight="1"
-        android:layout_height="@dimen/zero_dp"
-        android:text="Calculate" />
 
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/zero_dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:id="@+id/result"-->
-
-        <!--/>-->
-
-
-</LinearLayout>
+</ScrollView>
