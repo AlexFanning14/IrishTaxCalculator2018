@@ -1,14 +1,20 @@
 package com.example.alexfanning.irishtaxcalculator2018
 
+import android.annotation.SuppressLint
+import android.os.Parcelable
 import android.support.annotation.IntegerRes
 import android.util.Log
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 import kotlin.collections.HashMap
 
 /**
  * Created by alex.fanning on 16/11/2017.
  */
-data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val marStatus: MaritalStatus,val ageStatus: AgeStatus, val childStatus: ChildStatus, val hasMedCard: Boolean ) {
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val marStatus: MaritalStatus,
+                       val ageStatus: AgeStatus, val childStatus: ChildStatus, val hasMedCard: Boolean ) :Parcelable  {
 
     constructor(grossPay: Int,emplStatus: EmploymentStatus, marStatus: MaritalStatus,
                 ageStatus: AgeStatus, childStatus: ChildStatus, hasMedCard: Boolean, _spouseEmploymentStatus: EmploymentStatus,

@@ -70,23 +70,25 @@ class BasicFragment : Fragment() {
 
     private fun completeCalculation(){
         startActivity(Intent(context,ResultsActivity::class.java))
-//        val grossSal = etGrossSal.text.toString().toInt()
-//        val employemntStatus = EmploymentStatus.from(spnWorker.selectedItemPosition)
-//        val maritalStatus = MaritalStatus.from(spnMarital.selectedItemPosition)
-//        val ageStatus = AgeStatus.from(spnAge.selectedItemPosition)
-//        val childStatus = ChildStatus.from(spnChild.selectedItemPosition)
-//        val hasMedicalCard = chkMedCard.isChecked
+        val grossSal = etGrossSal.text.toString().toInt()
+        val employemntStatus = EmploymentStatus.from(spnWorker.selectedItemPosition)
+        val maritalStatus = MaritalStatus.from(spnMarital.selectedItemPosition)
+        val ageStatus = AgeStatus.from(spnAge.selectedItemPosition)
+        val childStatus = ChildStatus.from(spnChild.selectedItemPosition)
+        val hasMedicalCard = chkMedCard.isChecked
 
 
-//        val c : Calculation
-//        if (maritalStatus == MaritalStatus.MARRIED_TWO_WORKING){
-//           val spouseEmplyStatus = EmploymentStatus.from(spnSpouseWorker.selectedItemPosition)
-//            val spouseSal = etGrossSalSpouse.text.toString().toInt()
-//            c = Calculation(grossSal,employemntStatus,maritalStatus,ageStatus,childStatus,hasMedicalCard,spouseEmplyStatus,spouseSal)
-//        }else
-//            c = Calculation(grossSal,employemntStatus,maritalStatus,ageStatus,childStatus,hasMedicalCard)
-//        c.calculateTotalTax()
-
+        val c : Calculation
+        if (maritalStatus == MaritalStatus.MARRIED_TWO_WORKING){
+           val spouseEmplyStatus = EmploymentStatus.from(spnSpouseWorker.selectedItemPosition)
+            val spouseSal = etGrossSalSpouse.text.toString().toInt()
+            c = Calculation(grossSal,employemntStatus,maritalStatus,ageStatus,childStatus,hasMedicalCard,spouseEmplyStatus,spouseSal)
+        }else
+            c = Calculation(grossSal,employemntStatus,maritalStatus,ageStatus,childStatus,hasMedicalCard)
+        c.calculateTotalTax()
+        val i = Intent(context,ResultsActivity::class.java)
+        i.putExtra("Calc",c)
+        startActivity(i)
     }
 
 

@@ -7,74 +7,241 @@
 
 
     <ScrollView
+        android:id="@+id/sv_results"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/sv_results">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:orientation="horizontal"
-        android:weightSum="3"
-        >
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_margin="@dimen/margin_standard"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:orientation="vertical">
 
-            <TextView
+        <LinearLayout
+            android:baselineAligned="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-                android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="hello"
-                />
+                style="@style/CustomTextViewStyleNormal"
+                android:layout_margin="@dimen/margin_standard"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:text="Your Income:" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:text="Total Income:" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:text="Tax @ Lower Rate(20%):" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:text="Tax @ Higher Rate(20%):" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:text="Tax Creds:" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:text="Net Tax:" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:text="PRSI:" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:text="USC:" />
 
 
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_standard"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
+                <TextView
 
+                    android:id="@+id/tv_income_results"
+                    android:layout_width="match_parent"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:layout_height="wrap_content"
+                    android:hint="€100,000" />
 
+                <TextView
 
+                    android:id="@+id/tv_income_total_results"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="€100,000" />
 
+                <TextView
+
+                    android:id="@+id/tv_lower_rate_results"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="€20,000" />
+
+                <TextView
+
+                    android:id="@+id/tv_higher_rate_results"
+                    android:layout_width="match_parent"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:layout_height="wrap_content"
+                    android:hint="12,000" />
+
+                <TextView
+
+                    android:id="@+id/tv_tax_creds_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:hint="3,300" />
+
+                <TextView
+
+                    android:id="@+id/tv_net_tax_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:hint="51,000" />
+
+                <TextView
+
+                    android:id="@+id/tv_prsi_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:hint="1,000" />
+
+                <TextView
+
+                    android:id="@+id/tv_usc_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:hint="2,000" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_margin="@dimen/margin_standard"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="hello"
-                />
+                android:layout_marginStart="@dimen/margin_standard"
+
+                android:orientation="horizontal"
+                android:background="@color/colorBackground"
+                android:weightSum="3">
 
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CustomTextViewStyleNormal"
+                        android:text="Annual Net:" />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CustomTextViewStyleNormal"
+                        android:text="Monthly Net:" />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/CustomTextViewStyleNormal"
+                        android:text="Weekly Net:" />
 
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
 
+                    <TextView
 
+                        android:id="@+id/tv_monthly_net_results"
+                        style="@style/CustomTextViewStyleNormal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="12,000" />
+
+                    <TextView
+                        android:id="@+id/tv_annual_net_results"
+                        android:layout_width="match_parent"
+                        style="@style/CustomTextViewStyleNormal"
+                        android:layout_height="wrap_content"
+                        android:hint="1,000" />
+
+                    <TextView
+
+                        android:id="@+id/tv_weekly_net_results"
+                        android:layout_width="match_parent"
+                        style="@style/CustomTextViewStyleNormal"
+                        android:layout_height="wrap_content"
+                        android:hint="50" />
+
+                </LinearLayout>
+            </LinearLayout>
 
 
         </LinearLayout>
-
-
-
-    </LinearLayout>
-
-
 
     </ScrollView>
-
-
 
 </FrameLayout>
