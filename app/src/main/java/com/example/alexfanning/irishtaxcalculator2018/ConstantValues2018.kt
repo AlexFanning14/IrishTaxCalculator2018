@@ -1,19 +1,27 @@
 package com.example.alexfanning.irishtaxcalculator2018
 
+import java.text.DecimalFormat
 import java.util.*
 
 /**
  * Created by alex.fanning on 16/11/2017.
  */
 object ConstantValues2018 {
-    const val STANDARD_RATE_TAX_BAND_SINGLE = 34550
-    const val STANDARD_RATE_TAX_BAND_MARRIED = 43550
+    const val STANDARD_RATE_TAX_BAND_SINGLE_NO_CHILDR = 34550
+    const val STANDARD_RATE_TAX_BAND_SINGLE_WITH_CHILD = 37800
+    const val STANDARD_RATE_TAX_BAND_MARRIED_ONE_WORKING = 43550
+    const val STANDARD_RATE_TAX_BAND_MARRIED_BOTH_WORKING = 42800
+
 
     const val LOWER_RATE_PERCENT = .2f
     const val HIGHER_RATE_PERCENT = .4f
 
     const val TAX_CRED_SINGLE = 1650
     const val TAX_CRED_EMPLOYED = 1650
+    const val TAX_CRED_SELF_EMPLOYEED = 1150
+    const val TAX_CRED_WIDOWED_NO_CHILDREN = 2190
+    const val TAX_CRED_WIDOWED_WITH_CHILDREN = 1650
+    const val TAX_CRED_MARRIED = 3300
 
     val USC_VALS: Map<Long, Float> = mapOf<Long, Float>(0L to .005f, 12012L to .02f, 19372L to .0475f, 70044L to .08f)
 
@@ -31,7 +39,7 @@ object ConstantValues2018 {
 }
 
 enum class MaritalStatus(val index: Int) {
-    SINGLE(0), MARRIED_ONE_WORKING(1), MARRIED_TWO_WORKING(2), LONE_PARENT(3), WIDOWED(4);
+    SINGLE(0), WIDOWED(1), MARRIED_ONE_WORKING(2),MARRIED_TWO_WORKING(3), LONE_PARENT(4);
 
     companion object {
         fun from(search: Int): MaritalStatus = requireNotNull(values().find { it.index == search })
@@ -39,7 +47,7 @@ enum class MaritalStatus(val index: Int) {
 }
 
 enum class EmploymentStatus(val index: Int) {
-    PAYE_WORKER(0), SELF_EMPLOYED(1), PUBLIC_SERVANT(2);
+    PAYE_WORKER(0), SELF_EMPLOYED(1), PUBLIC_SERVANT(2), NO_SPOUSE(3);
 
     companion object {
         fun from(search: Int): EmploymentStatus = requireNotNull(values().find { it.index == search })
@@ -60,4 +68,15 @@ enum class ChildStatus(val index: Int) {
     companion object {
         fun from(search: Int): ChildStatus = requireNotNull(values().find { it.index == search })
     }
+}
+
+//String Extension Method
+fun String.formatResult() : String{
+    val amount = this
+    val formatter = DecimalFormat("#,###.00")
+    val numFormatted = formatter.format(amount.toDouble())
+    val sb = StringBuilder()
+    sb.append("€")
+    sb.append(numFormatted)
+    return sb.toString()
 }

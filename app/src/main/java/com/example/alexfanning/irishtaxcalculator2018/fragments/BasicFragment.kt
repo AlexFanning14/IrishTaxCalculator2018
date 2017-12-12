@@ -34,8 +34,6 @@ class BasicFragment : Fragment() {
 
 
 
-    //Test
-    private lateinit var etResult: TextView
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -48,8 +46,6 @@ class BasicFragment : Fragment() {
     }
 
     private fun findViews(rootView: View?) {
-        //etResult = rootView!!.findViewById<TextView>(R.id.result)
-
         etGrossSal = rootView!!.findViewById<EditText>(R.id.et_gross_sal)
         etGrossSalSpouse = rootView.findViewById<EditText>(R.id.et_gross_sal_spouse)
         spnWorker = rootView.findViewById<Spinner>(R.id.basic_spinner_worker_status)
@@ -62,7 +58,6 @@ class BasicFragment : Fragment() {
         spnChild = rootView.findViewById<Spinner>(R.id.basic_spinner_children)
         chkMedCard = rootView.findViewById<CheckBox>(R.id.basic_chk_box_med_card)
         btnCalculate = rootView.findViewById<Button>(R.id.basic_btn_calculate)
-
         btnCalculate.setOnClickListener { completeCalculation() }
 
 
@@ -90,9 +85,6 @@ class BasicFragment : Fragment() {
         i.putExtra("Calc",c)
         startActivity(i)
     }
-
-
-
 
 
     private fun setUpSpinners() {

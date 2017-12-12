@@ -58,10 +58,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/CustomTextViewStyleNormal"
-                    android:text="Tax @ Higher Rate(20%):" />
+                    android:text="Tax @ Higher Rate(40%):" />
 
                 <TextView
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/CustomTextViewStyleNormal"
@@ -72,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/CustomTextViewStyleNormal"
-                    android:text="Net Tax:" />
+                    android:text="Income Tax:" />
 
                 <TextView
 
@@ -87,6 +86,13 @@
                     android:layout_height="wrap_content"
                     style="@style/CustomTextViewStyleNormal"
                     android:text="USC:" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:text="Total Tax:" />
 
 
             </LinearLayout>
@@ -162,6 +168,14 @@
                     style="@style/CustomTextViewStyleNormal"
                     android:hint="2,000" />
 
+                <TextView
+
+                    android:id="@+id/tv_total_tax_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomTextViewStyleNormal"
+                    android:hint="2,000" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -204,6 +218,7 @@
                         android:text="Weekly Net:" />
 
 
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -214,14 +229,6 @@
 
 
                     <TextView
-
-                        android:id="@+id/tv_monthly_net_results"
-                        style="@style/CustomTextViewStyleNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="12,000" />
-
-                    <TextView
                         android:id="@+id/tv_annual_net_results"
                         android:layout_width="match_parent"
                         style="@style/CustomTextViewStyleNormal"
@@ -230,11 +237,21 @@
 
                     <TextView
 
+                        android:id="@+id/tv_monthly_net_results"
+                        style="@style/CustomTextViewStyleNormal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="12,000" />
+
+
+                    <TextView
                         android:id="@+id/tv_weekly_net_results"
                         android:layout_width="match_parent"
                         style="@style/CustomTextViewStyleNormal"
                         android:layout_height="wrap_content"
                         android:hint="50" />
+
+
 
                 </LinearLayout>
             </LinearLayout>
