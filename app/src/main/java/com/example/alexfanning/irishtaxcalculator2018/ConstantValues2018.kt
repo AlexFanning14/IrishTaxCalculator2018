@@ -10,8 +10,9 @@ object ConstantValues2018 {
     const val STANDARD_RATE_TAX_BAND_SINGLE_NO_CHILDR = 34550
     const val STANDARD_RATE_TAX_BAND_SINGLE_WITH_CHILD = 37800
     const val STANDARD_RATE_TAX_BAND_MARRIED_ONE_WORKING = 43550
-    const val STANDARD_RATE_TAX_BAND_MARRIED_BOTH_WORKING = 42800
+    const val STANDARD_RATE_TAX_BAND_MARRIED_BOTH_WORKING = 43550
 
+    const val STANDARD_RATE_CUT_OFF_SPOUSE_INCREASE = 24800
 
     const val LOWER_RATE_PERCENT = .2f
     const val HIGHER_RATE_PERCENT = .4f
@@ -34,12 +35,11 @@ object ConstantValues2018 {
     const val PRSI_TAX_CRED = 12
     const val PRSI_TAX_CRED_DIVISBLE_FACTOR = 6
 
-
     const val WEEKS_IN_YEAR = 52
 }
 
 enum class MaritalStatus(val index: Int) {
-    SINGLE(0), WIDOWED(1), MARRIED_ONE_WORKING(2),MARRIED_TWO_WORKING(3), LONE_PARENT(4);
+    SINGLE(0),SINGLE_LONE_PARENT (1), WIDOWED(2), WIDOWED_LONE_PARENT(3),MARRIED_ONE_WORKING(4),MARRIED_TWO_WORKING(5);
 
     companion object {
         fun from(search: Int): MaritalStatus = requireNotNull(values().find { it.index == search })

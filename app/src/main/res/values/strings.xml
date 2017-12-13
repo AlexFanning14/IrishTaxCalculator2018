@@ -24,23 +24,24 @@
         <item>PAYE employee</item>
         <item>Self Employed</item>
         <item>Public Servant</item>
-        <item>Select Employment Status</item>
+        <item>Select Employment Status ▼</item>
     </string-array>
 
     <string-array name="spinner_employment_array_spouse">
         <item>PAYE employee</item>
         <item>Self Employed</item>
         <item>Public Servant</item>
-        <item>Select Spouse Employment Status</item>
+        <item>Select Spouse Employment Status ▼</item>
     </string-array>
 
     <string-array name="spinner_marital_array">
-        <item>Single</item>
+        <item>Single </item>
+        <item>Single (Lone Parent)</item>
         <item>Widowed</item>
-        <item>Married(1 spouse working)</item>
+        <item>Widowed (Lone Parent)</item>
+        <item>Married (1 spouse working)</item>
         <item>Married (Both Working)</item>
-        <item>Lone Parent</item>
-        <item>Select Marital Status</item>
+        <item>Select Marital Status ▼</item>
     </string-array>
 
     <string-array name="spinner_age_array">
@@ -48,7 +49,7 @@
         <item>65</item>
         <item>65-69</item>
         <item>70+</item>
-        <item>Select Age</item>
+        <item>Select Age ▼</item>
     </string-array>
 
 

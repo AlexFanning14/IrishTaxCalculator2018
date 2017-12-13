@@ -51,7 +51,7 @@ class ResultsActivity : AppCompatActivity() {
 
     private fun displayResults(c : Calculation){
         tv_income.text = c.grossPay.toString().formatResult()
-        tv_income_total.text = c.grossPay.toString().formatResult()
+        tv_income_total.text = c.totalGrossPay.toString().formatResult()
         tv_lower_rate.text = c.lowerTax.toInt().toString().formatResult()
         tv_higher_rate.text = c.higherTax.toInt().toString().formatResult()
         tv_tax_creds.text = "(" +c.taxCreditTotal.toString().formatResult() + ")"

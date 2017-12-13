@@ -17,6 +17,8 @@
             android:id="@+id/et_gross_sal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/basic_item_height"
+            style="@style/CustomTextViewStyleNormal"
+            android:background="@drawable/border_tv"
             android:gravity="center"
             android:hint="Gross Pay" />
 
@@ -24,12 +26,15 @@
         <Spinner
             android:id="@+id/basic_spinner_worker_status"
             android:layout_width="match_parent"
+            android:background="@drawable/border_tv"
             android:layout_height="@dimen/basic_item_height"
-            android:gravity="center" />
+            android:layout_gravity="center"
+             />
 
         <Spinner
             android:id="@+id/basic_spinner_marital_status"
             android:layout_width="match_parent"
+            android:background="@drawable/border_tv"
             android:layout_height="@dimen/basic_item_height"
             android:gravity="center" />
 
@@ -37,7 +42,9 @@
             android:id="@+id/et_gross_sal_spouse"
             android:layout_width="match_parent"
             android:layout_height="@dimen/basic_item_height"
+            android:background="@drawable/border_tv"
             android:gravity="center"
+            style="@style/CustomTextViewStyleNormal"
             android:hint="Spouse Gross Pay"
             android:visibility="gone" />
 
@@ -45,18 +52,14 @@
             android:id="@+id/basic_spinner_worker_status_spouse"
             android:layout_width="match_parent"
             android:layout_height="@dimen/basic_item_height"
+            android:background="@drawable/border_tv"
             android:gravity="center"
             android:visibility="gone" />
 
         <Spinner
             android:id="@+id/basic_spinner_age"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/basic_item_height"
-            android:gravity="center" />
-
-        <Spinner
-            android:id="@+id/basic_spinner_children"
-            android:layout_width="match_parent"
+            android:background="@drawable/border_tv"
             android:layout_height="@dimen/basic_item_height"
             android:gravity="center" />
 
@@ -64,16 +67,19 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/basic_item_height"
             android:gravity="center"
+            android:background="@drawable/border_tv"
             android:weightSum="2">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
                 android:text="Do you have a full medical card?" />
 
             <CheckBox
                 android:id="@+id/basic_chk_box_med_card"
                 android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>

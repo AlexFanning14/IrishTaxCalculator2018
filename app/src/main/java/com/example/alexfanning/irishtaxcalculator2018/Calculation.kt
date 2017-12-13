@@ -14,11 +14,11 @@ import kotlin.collections.HashMap
  * Created by alex.fanning on 16/11/2017.
  */
 data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val marStatus: MaritalStatus,
-                       val ageStatus: AgeStatus, val childStatus: ChildStatus, val hasMedCard: Boolean) : Parcelable {
+                       val ageStatus: AgeStatus, val hasMedCard: Boolean) : Parcelable {
 
     constructor(grossPay: Int, emplStatus: EmploymentStatus, marStatus: MaritalStatus,
-                ageStatus: AgeStatus, childStatus: ChildStatus, hasMedCard: Boolean, _spouseEmploymentStatus: EmploymentStatus,
-                _spouseSal: Int) : this(grossPay, emplStatus, marStatus, ageStatus, childStatus, hasMedCard) {
+                ageStatus: AgeStatus, hasMedCard: Boolean, _spouseEmploymentStatus: EmploymentStatus,
+                _spouseSal: Int) : this(grossPay, emplStatus, marStatus, ageStatus, hasMedCard) {
         spouseEmploymentStatus = _spouseEmploymentStatus
         spouseSal = _spouseSal
     }
@@ -36,7 +36,7 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
     var weeklyNet: Float = 0f
     var spouseEmploymentStatus = EmploymentStatus.NO_SPOUSE
     var spouseSal: Int = 0
-
+    var totalGrossPay: Int = 0
 
 
     constructor(parcel: Parcel) : this(
@@ -44,7 +44,6 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
             EmploymentStatus.from(parcel.readInt()),
             MaritalStatus.from(parcel.readInt()),
             AgeStatus.from(parcel.readInt()),
-            ChildStatus.from(parcel.readInt()),
             parcel.readByte() != 0.toByte()) {
         incomeTax = parcel.readInt()
         PRSI = parcel.readInt()
@@ -57,34 +56,24 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
         annualNet = parcel.readInt()
         monthlyNet = parcel.readFloat()
         weeklyNet = parcel.readFloat()
+        totalGrossPay = parcel.readInt()
     }
 
 
     fun calculateTotalTax() {
         generateTaxCredits()
-        var incomeTaxVar: Float = 0f
 
-        var tax_band : Int = 0
-        if(marStatus == MaritalStatus.SINGLE && childStatus == ChildStatus.NONE)
-            tax_band = ConstantValues2018.STANDARD_RATE_TAX_BAND_SINGLE_NO_CHILDR
-        else if (marStatus == MaritalStatus.SINGLE && childStatus != ChildStatus.NONE)
-            tax_band = ConstantValues2018.STANDARD_RATE_TAX_BAND_SINGLE_WITH_CHILD
-        else if (marStatus == MaritalStatus.MARRIED_ONE_WORKING)
-            tax_band = ConstantValues2018.STANDARD_RATE_TAX_BAND_MARRIED_ONE_WORKING
-        else if (marStatus == MaritalStatus.MARRIED_TWO_WORKING)
-            tax_band == ConstantValues2018.STANDARD_RATE_TAX_BAND_MARRIED_BOTH_WORKING
+        totalGrossPay = grossPay
 
-        if (grossPay > tax_band) {
-            val remainder = grossPay - tax_band
-            lowerTax = tax_band * ConstantValues2018.LOWER_RATE_PERCENT
-            higherTax = remainder * ConstantValues2018.HIGHER_RATE_PERCENT
-            incomeTaxVar = lowerTax + higherTax
-        } else {
-            incomeTaxVar = grossPay * ConstantValues2018.LOWER_RATE_PERCENT
+        if (marStatus == MaritalStatus.MARRIED_TWO_WORKING){
+            calculateIncomeTaxBothWorking()
+        }else{
+            calculateIncomeTaxNormal()
         }
-        incomeTax = Math.round(incomeTaxVar)
-        USC = calculateUSC()
-        PRSI = calculatePRSI()
+
+        calculatePrsiAndUsc()
+
+
 
         incomeTax -= taxCreditTotal
 
@@ -93,7 +82,7 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
         }
 
         totalTax = incomeTax + USC + PRSI
-        netIncome = grossPay - totalTax
+        netIncome = totalGrossPay - totalTax
 
         annualNet = netIncome
         monthlyNet = netIncome / 12f
@@ -101,8 +90,75 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
 
     }
 
-    private fun calculateUSC(): Int {
-        if (grossPay < 13000) {
+    private fun calculateIncomeTaxNormal(){
+        var incomeTaxVar: Float = 0f
+        var tax_band : Int = 0
+
+        if(marStatus == MaritalStatus.SINGLE)
+            tax_band = ConstantValues2018.STANDARD_RATE_TAX_BAND_SINGLE_NO_CHILDR
+        else if (marStatus == MaritalStatus.SINGLE_LONE_PARENT || marStatus == MaritalStatus.WIDOWED_LONE_PARENT)
+            tax_band = ConstantValues2018.STANDARD_RATE_TAX_BAND_SINGLE_WITH_CHILD
+        else if (marStatus == MaritalStatus.MARRIED_ONE_WORKING)
+            tax_band = ConstantValues2018.STANDARD_RATE_TAX_BAND_MARRIED_ONE_WORKING
+
+
+        if (totalGrossPay > tax_band) {
+            val remainder = totalGrossPay - tax_band
+            lowerTax = tax_band * ConstantValues2018.LOWER_RATE_PERCENT
+            higherTax = remainder * ConstantValues2018.HIGHER_RATE_PERCENT
+            incomeTaxVar = lowerTax + higherTax
+        } else {
+            incomeTaxVar = totalGrossPay * ConstantValues2018.LOWER_RATE_PERCENT
+        }
+        incomeTax = Math.round(incomeTaxVar)
+    }
+
+    private fun calculateIncomeTaxBothWorking(){
+        totalGrossPay += spouseSal
+
+        var lowerSal : Int = 0
+        if (grossPay >= spouseSal )
+            lowerSal = spouseSal
+        else
+            lowerSal = grossPay
+
+        var lowerTaxBand : Int = 0
+        if (lowerSal <= ConstantValues2018.STANDARD_RATE_CUT_OFF_SPOUSE_INCREASE)
+            lowerTaxBand = lowerSal
+        else
+            lowerTaxBand = ConstantValues2018.STANDARD_RATE_CUT_OFF_SPOUSE_INCREASE
+
+        val totalHigherBand = ConstantValues2018.STANDARD_RATE_TAX_BAND_MARRIED_BOTH_WORKING + lowerTaxBand
+        var incomeTaxVar : Float = 0f
+
+        if (totalGrossPay > totalHigherBand) {
+            val remainder = totalGrossPay - totalHigherBand
+            lowerTax = totalHigherBand * ConstantValues2018.LOWER_RATE_PERCENT
+            higherTax = remainder * ConstantValues2018.HIGHER_RATE_PERCENT
+            incomeTaxVar = lowerTax + higherTax
+        } else {
+            incomeTaxVar = totalGrossPay * ConstantValues2018.LOWER_RATE_PERCENT
+        }
+        incomeTax = Math.round(incomeTaxVar)
+    }
+
+
+    private fun calculatePrsiAndUsc(){
+        if (marStatus == MaritalStatus.MARRIED_TWO_WORKING){
+            PRSI = calculatePRSI(grossPay)
+            PRSI += calculatePRSI(spouseSal)
+            USC = calculateUSC(grossPay)
+            USC += calculateUSC(spouseSal)
+        }else{
+            PRSI = calculatePRSI(grossPay)
+            USC = calculateUSC(grossPay)
+        }
+    }
+
+
+
+    private fun calculateUSC(sal : Int): Int {
+        if (sal < 13000) {
             return 0
         }
         val keys: List<Long> = ConstantValues2018.USC_VALS.keys.toList()
@@ -110,17 +166,17 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
         var i = 0
         while (i < keys.size) {
             try {
-                if (grossPay > keys[i] && grossPay > keys[i + 1]) {
+                if (sal > keys[i] && sal > keys[i + 1]) {
                     val valToTax = keys[i + 1] - keys[i]
                     val uscPC: Float? = ConstantValues2018.USC_VALS.get(keys[i])
                     totalUsc += (valToTax * uscPC as Float)
-                } else if (grossPay > keys[i]) {
-                    val valToTax = grossPay - keys[i]
+                } else if (sal > keys[i]) {
+                    val valToTax = sal - keys[i]
                     val uscPC: Float? = ConstantValues2018.USC_VALS.get(keys[i])
                     totalUsc += (valToTax * uscPC as Float)
                 }
             } catch (ex: IndexOutOfBoundsException) {
-                val valToTax = grossPay - keys[i]
+                val valToTax = sal - keys[i]
                 val uscPC: Float? = ConstantValues2018.USC_VALS.get(keys[i])
                 totalUsc += (valToTax * uscPC as Float)
             }
@@ -131,34 +187,38 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
     }
 
 
-    private fun calculatePRSI(): Int {
+    private fun calculatePRSI(sal: Int): Int {
 
-        if (grossPay <= ConstantValues2018.PRSI_LOWER_CUT_OFF_ANNUAL) {
+        if (sal <= ConstantValues2018.PRSI_LOWER_CUT_OFF_ANNUAL) {
             return 0
-        } else if (grossPay > ConstantValues2018.PRSI_LOWER_CUT_OFF_ANNUAL && grossPay < ConstantValues2018.PRSI_HIGHER_CUT_OFF_ANNUAL) {
-            val weeklyVal = grossPay.toFloat() / ConstantValues2018.WEEKS_IN_YEAR
+        } else if (sal > ConstantValues2018.PRSI_LOWER_CUT_OFF_ANNUAL && sal < ConstantValues2018.PRSI_HIGHER_CUT_OFF_ANNUAL) {
+            val weeklyVal = sal.toFloat() / ConstantValues2018.WEEKS_IN_YEAR
             val weeklyDiff = (weeklyVal - ConstantValues2018.PRSI_LOWER_CUT_OFF_WEEKLY) / ConstantValues2018.PRSI_TAX_CRED_DIVISBLE_FACTOR
             val taxCred = ConstantValues2018.PRSI_TAX_CRED - weeklyDiff
             val basicPrsi = weeklyVal * ConstantValues2018.PRSI_PERCENT
             val annualPRSI = (basicPrsi - taxCred) * 52
             return Math.round(annualPRSI)
         } else {
-            return Math.round(grossPay * ConstantValues2018.PRSI_PERCENT)
+            return Math.round(sal * ConstantValues2018.PRSI_PERCENT)
         }
     }
 
     private fun generateTaxCredits() {
         if (marStatus == MaritalStatus.SINGLE)
             taxCreditTotal += ConstantValues2018.TAX_CRED_SINGLE
-        else if (marStatus == MaritalStatus.WIDOWED && childStatus == ChildStatus.NONE)
+        else if (marStatus == MaritalStatus.WIDOWED )
             taxCreditTotal += ConstantValues2018.TAX_CRED_WIDOWED_NO_CHILDREN
         else if (marStatus == MaritalStatus.MARRIED_ONE_WORKING)
             taxCreditTotal += ConstantValues2018.TAX_CRED_MARRIED
-
-        else if (marStatus == MaritalStatus.MARRIED_TWO_WORKING ) {
+        else if (marStatus == MaritalStatus.MARRIED_TWO_WORKING && spouseEmploymentStatus == EmploymentStatus.PAYE_WORKER) {
             taxCreditTotal += ConstantValues2018.TAX_CRED_MARRIED
+            //Spouse PAYE Tax Cred
+            taxCreditTotal += ConstantValues2018.TAX_CRED_EMPLOYED
+        }else if (marStatus == MaritalStatus.MARRIED_TWO_WORKING && spouseEmploymentStatus == EmploymentStatus.SELF_EMPLOYED) {
+            taxCreditTotal += ConstantValues2018.TAX_CRED_MARRIED
+            //Spouse PAYE Tax Cred
+            taxCreditTotal += ConstantValues2018.TAX_CRED_SELF_EMPLOYEED
         }
-//TODO Here 12/12
 
 
 
@@ -174,7 +234,6 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
         parcel.writeInt(emplStatus.index)
         parcel.writeInt(marStatus.index)
         parcel.writeInt(ageStatus.index)
-        parcel.writeInt(childStatus.index)
         parcel.writeByte(if (hasMedCard) 1 else 0)
         parcel.writeInt(incomeTax)
         parcel.writeInt(PRSI)
@@ -187,6 +246,7 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
         parcel.writeInt(annualNet)
         parcel.writeFloat(monthlyNet)
         parcel.writeFloat(weeklyNet)
+        parcel.writeInt(totalGrossPay)
     }
 
     override fun describeContents(): Int {
