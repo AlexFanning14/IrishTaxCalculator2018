@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
+    <group android:checkableBehavior="single">
     <item android:title="Basic Calculator">
         <menu>
             <item
@@ -15,7 +16,7 @@
     </item>
 
 
-    <group android:checkableBehavior="single">
+
         <item android:title="Advanced Calculator">
             <menu>
 
@@ -35,16 +36,6 @@
         </item>
     </group>
 
-    <item android:title="Results">
-        <menu>
-            <item
-                android:id="@+id/nav_results"
-                android:icon="@drawable/ic_menu_camera"
-                android:title="View Results" />
-        </menu>
-
-
-    </item>
 
 
 

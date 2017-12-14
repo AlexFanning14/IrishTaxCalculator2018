@@ -47,7 +47,7 @@
     <string-array name="spinner_age_array">
         <item>Under 65</item>
         <item>65</item>
-        <item>65-69</item>
+        <item>66-69</item>
         <item>70+</item>
         <item>Select Age ▼</item>
     </string-array>

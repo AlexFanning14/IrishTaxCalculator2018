@@ -144,20 +144,60 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
 
 
     private fun calculatePrsiAndUsc(){
+        var isUSCReduced = false
+
+        if (ageStatus == AgeStatus.OVER_69 || hasMedCard)
+            isUSCReduced = true
+
         if (marStatus == MaritalStatus.MARRIED_TWO_WORKING){
             PRSI = calculatePRSI(grossPay)
             PRSI += calculatePRSI(spouseSal)
-            USC = calculateUSC(grossPay)
-            USC += calculateUSC(spouseSal)
+            if (isUSCReduced && grossPay < 60000){
+                USC = calculateUSCreduced(grossPay)
+                USC += calculateUSCreduced(spouseSal)
+            }else{
+                USC = calculateUSCunreduced(grossPay)
+                USC += calculateUSCunreduced(spouseSal)
+            }
+
         }else{
+
             PRSI = calculatePRSI(grossPay)
-            USC = calculateUSC(grossPay)
+            if (isUSCReduced && grossPay < 60000 )
+                USC = calculateUSCreduced(grossPay)
+            else
+                USC = calculateUSCunreduced(grossPay)
+
         }
     }
 
+    private fun calculateUSCreduced(sal: Int) : Int{
+        val keys: List<Long> = ConstantValues2018.USC_VALS_REDUCED.keys.toList()
+        var totalUsc = 0f
+        var i = 0
+        while (i < keys.size) {
+            try {
+                if (sal > keys[i] && sal > keys[i + 1]) {
+                    val valToTax = keys[i + 1] - keys[i]
+                    val uscPC: Float? = ConstantValues2018.USC_VALS_REDUCED.get(keys[i])
+                    totalUsc += (valToTax * uscPC as Float)
+                } else if (sal > keys[i]) {
+                    val valToTax = sal - keys[i]
+                    val uscPC: Float? = ConstantValues2018.USC_VALS_REDUCED.get(keys[i])
+                    totalUsc += (valToTax * uscPC as Float)
+                }
+            } catch (ex: IndexOutOfBoundsException) {
+                val valToTax = sal - keys[i]
+                val uscPC: Float? = ConstantValues2018.USC_VALS_REDUCED.get(keys[i])
+                totalUsc += (valToTax * uscPC as Float)
+            }
+            i++
+        }
+        return Math.round(totalUsc)
+    }
 
 
-    private fun calculateUSC(sal : Int): Int {
+    private fun calculateUSCunreduced(sal : Int): Int {
         if (sal < 13000) {
             return 0
         }
@@ -180,7 +220,6 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
                 val uscPC: Float? = ConstantValues2018.USC_VALS.get(keys[i])
                 totalUsc += (valToTax * uscPC as Float)
             }
-
             i++
         }
         return Math.round(totalUsc)
@@ -188,7 +227,8 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
 
 
     private fun calculatePRSI(sal: Int): Int {
-
+        if (ageStatus == AgeStatus._66_69 || ageStatus == AgeStatus.OVER_69)
+            return 0
         if (sal <= ConstantValues2018.PRSI_LOWER_CUT_OFF_ANNUAL) {
             return 0
         } else if (sal > ConstantValues2018.PRSI_LOWER_CUT_OFF_ANNUAL && sal < ConstantValues2018.PRSI_HIGHER_CUT_OFF_ANNUAL) {
@@ -220,13 +260,17 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
             taxCreditTotal += ConstantValues2018.TAX_CRED_SELF_EMPLOYEED
         }
 
-
-
         if (emplStatus == EmploymentStatus.PAYE_WORKER) {
             taxCreditTotal += ConstantValues2018.TAX_CRED_EMPLOYED
         }else if (emplStatus == EmploymentStatus.SELF_EMPLOYED){
             taxCreditTotal += ConstantValues2018.TAX_CRED_SELF_EMPLOYEED
         }
+
+        if ((marStatus == MaritalStatus.MARRIED_TWO_WORKING) && (ageStatus == AgeStatus._65 || ageStatus == AgeStatus._66_69 || ageStatus == AgeStatus.OVER_69))
+            taxCreditTotal += ConstantValues2018.TAX_CRED_AGE_TWO_INCOMES
+        else if (!(marStatus == MaritalStatus.MARRIED_TWO_WORKING) && (ageStatus == AgeStatus._65 || ageStatus == AgeStatus._66_69 || ageStatus == AgeStatus.OVER_69))
+            taxCreditTotal += ConstantValues2018.TAX_CRED_AGE_SINGLE
+
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

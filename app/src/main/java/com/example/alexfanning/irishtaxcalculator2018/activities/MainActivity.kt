@@ -31,12 +31,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if (savedInstanceState?.get("navPos")== null){
             val menuItem = navigationView.menu.findItem(R.id.nav_basic_calculater) as MenuItem
-            menuItem.isChecked = true
+
             onNavigationItemSelected(menuItem)
         }else{
             val menuId : Int = savedInstanceState.getInt("navPos")
             val menuItem = navigationView.menu.findItem(menuId) as MenuItem
-            menuItem.isChecked = true
+
             onNavigationItemSelected(menuItem)
         }
     }
@@ -83,24 +83,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var title : String = ""
         when (sNavId) {
             0, R.id.nav_basic_calculater -> {
+                nav_view.setCheckedItem(R.id.nav_basic_calculater)
                 fragment = BasicFragment()
                 title = "Basic Calculator"
             }
             R.id.nav_status -> {
+                nav_view.setCheckedItem(R.id.nav_status)
                 fragment = StatusFragment()
                 title = getString(R.string.nav_drawer_status)
             }
             R.id.nav_income -> {
+                nav_view.setCheckedItem(R.id.nav_income)
                 fragment = IncomeFragment()
                 title = getString(R.string.nav_drawer_income)
             }
             R.id.nav_benefit -> {
+                nav_view.setCheckedItem(R.id.nav_benefit)
                 fragment = BenefitFragment()
+
                 title = getString(R.string.nav_drawer_benefits)
-            }
-            R.id.nav_results -> {
-                fragment = ResultsFragment()
-                title = getString(R.string.nav_drawer_submit)
             }
         }
         supportFragmentManager.beginTransaction().replace(R.id.content_frame,fragment).commit()

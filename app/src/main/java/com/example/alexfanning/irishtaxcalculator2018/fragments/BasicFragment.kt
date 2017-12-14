@@ -46,11 +46,12 @@ class BasicFragment : Fragment() {
 
     private fun findViews(rootView: View?) {
         etGrossSal = rootView!!.findViewById<EditText>(R.id.et_gross_sal)
+        etGrossSal.setOnFocusChangeListener{view, b -> focusChanged(view as EditText,b) }
         etGrossSalSpouse = rootView.findViewById<EditText>(R.id.et_gross_sal_spouse)
+        etGrossSalSpouse.setOnFocusChangeListener{view, b -> focusChanged(view as EditText,b) }
         spnWorker = rootView.findViewById<Spinner>(R.id.basic_spinner_worker_status)
         spnSpouseWorker = rootView.findViewById<Spinner>(R.id.basic_spinner_worker_status_spouse)
         spnMarital = rootView.findViewById<Spinner>(R.id.basic_spinner_marital_status)
-
 
 
         spnAge = rootView.findViewById<Spinner>(R.id.basic_spinner_age)
@@ -61,8 +62,17 @@ class BasicFragment : Fragment() {
 
     }
 
+    private fun focusChanged(et : EditText,hasFocus: Boolean ) {
+        val str = et.text.toString()
+        if (hasFocus)
+            et.text.clear()
+        else if (str.isNotEmpty())
+            et.setText(str.formatResult())
+
+    }
+
     private fun completeCalculation(){
-        val grossSal = etGrossSal.text.toString().toInt()
+        val grossSal = etGrossSal.text.toString().unFormatResult()
         val employemntStatus = EmploymentStatus.from(spnWorker.selectedItemPosition)
         val maritalStatus = MaritalStatus.from(spnMarital.selectedItemPosition)
         val ageStatus = AgeStatus.from(spnAge.selectedItemPosition)
@@ -72,7 +82,7 @@ class BasicFragment : Fragment() {
         val c : Calculation
         if (maritalStatus == MaritalStatus.MARRIED_TWO_WORKING){
            val spouseEmplyStatus = EmploymentStatus.from(spnSpouseWorker.selectedItemPosition)
-            val spouseSal = etGrossSalSpouse.text.toString().toInt()
+            val spouseSal = etGrossSalSpouse.text.toString().unFormatResult()
             c = Calculation(grossSal,employemntStatus,maritalStatus,ageStatus,hasMedicalCard,spouseEmplyStatus,spouseSal)
         }else
             c = Calculation(grossSal,employemntStatus,maritalStatus,ageStatus,hasMedicalCard)
@@ -100,23 +110,27 @@ class BasicFragment : Fragment() {
         spnMarital.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
                 if (position == 5){
-                    Toast.makeText(context, "Item Selected Number: " + position, Toast.LENGTH_SHORT).show()
                     spnSpouseWorker.visibility = Spinner.VISIBLE
                     etGrossSalSpouse.visibility = EditText.VISIBLE
                 }
+                else{
+                    spnSpouseWorker.visibility = Spinner.GONE
+                    etGrossSalSpouse.visibility = EditText.GONE
+                }
+
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>) {
                 // your code here
             }
-
         })
+
+
 
 
         val ageAdapter = SpinnerHintAdapter(context, R.layout.custom_spinner_layout, resources.getStringArray(R.array.spinner_age_array))
         spnAge.adapter = ageAdapter
         spnAge.setSelection(ageAdapter.count)
-
 
     }
 

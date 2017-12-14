@@ -23,9 +23,12 @@ object ConstantValues2018 {
     const val TAX_CRED_WIDOWED_NO_CHILDREN = 2190
     const val TAX_CRED_WIDOWED_WITH_CHILDREN = 1650
     const val TAX_CRED_MARRIED = 3300
+    const val TAX_CRED_AGE_TWO_INCOMES = 490
+    const val TAX_CRED_AGE_SINGLE = 245
+
 
     val USC_VALS: Map<Long, Float> = mapOf<Long, Float>(0L to .005f, 12012L to .02f, 19372L to .0475f, 70044L to .08f)
-
+    val USC_VALS_REDUCED: Map <Long,Float> = mapOf<Long,Float>(0L to .005f,12012L to 0.02f)
 
     const val PRSI_PERCENT = .04f
     const val PRSI_LOWER_CUT_OFF_WEEKLY = 352.01f
@@ -55,7 +58,7 @@ enum class EmploymentStatus(val index: Int) {
 }
 
 enum class AgeStatus(val index: Int) {
-    UNDER_65(0), _65(1), _65_69(2), OVER_69(3);
+    UNDER_65(0), _65(1), _66_69(2), OVER_69(3);
 
     companion object {
         fun from(search: Int): AgeStatus = requireNotNull(values().find { it.index == search })
@@ -73,10 +76,24 @@ enum class ChildStatus(val index: Int) {
 //String Extension Method
 fun String.formatResult() : String{
     val amount = this
+    if (amount.equals("0")){
+        return "€0.00"
+    }
     val formatter = DecimalFormat("#,###.00")
     val numFormatted = formatter.format(amount.toDouble())
     val sb = StringBuilder()
     sb.append("€")
     sb.append(numFormatted)
     return sb.toString()
+}
+
+fun String.unFormatResult() : Int{
+    var amount = this
+    if (amount.startsWith("€")){
+        amount = amount.replace(",","")
+        amount = amount.replace(".00","")
+        amount = amount.replace("€","")
+    }
+
+    return amount.toInt()
 }
