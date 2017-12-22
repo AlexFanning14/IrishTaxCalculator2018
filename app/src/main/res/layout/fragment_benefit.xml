@@ -1,13 +1,188 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.example.alexfanning.irishtaxcalculator2018.fragments.BenefitFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/nav_drawer_benefits" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Do you have a company car?" />
+
+            <CheckBox
+                android:id="@+id/chk_box_company_car"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/advanced_et_income"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            style="@style/CustomTextViewStyleNormal"
+            android:background="@drawable/border_tv"
+            android:gravity="center"
+            android:hint="Original Value of car?" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Employer paid health insurance?" />
+
+            <CheckBox
+                android:id="@+id/chk_box_health_insurance"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/advanced_et_health_insur"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            style="@style/CustomTextViewStyleNormal"
+            android:background="@drawable/border_tv"
+            android:gravity="center"
+            android:hint="How much health insurance??" />
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TAX CREDITS:"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Doyou have incapicated child??" />
+
+            <CheckBox
+                android:id="@+id/chk_box_incap_child"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Do you have a dependent relative?" />
+
+            <CheckBox
+                android:id="@+id/chk_box_dep_relative"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Are you entitled to blind tax credit?" />
+
+            <CheckBox
+                android:id="@+id/chk_box_blind_tax_cred"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Is your spouse blind?" />
+
+            <CheckBox
+                android:id="@+id/chk_box_spouse_blind"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Do you have a guide dog?" />
+
+            <CheckBox
+                android:id="@+id/chk_box_guide_dog"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>

@@ -6,13 +6,16 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.example.alexfanning.irishtaxcalculator2018.Calculation
 import com.example.alexfanning.irishtaxcalculator2018.R
 import com.example.alexfanning.irishtaxcalculator2018.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -29,15 +32,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
 
-        if (savedInstanceState?.get("navPos")== null){
+       if (savedInstanceState?.get("navId")== null){
+           LOG.warning("In SavedInstanceState is Null")
             val menuItem = navigationView.menu.findItem(R.id.nav_basic_calculater) as MenuItem
 
             onNavigationItemSelected(menuItem)
         }else{
-            val menuId : Int = savedInstanceState.getInt("navPos")
-            val menuItem = navigationView.menu.findItem(menuId) as MenuItem
-
-            onNavigationItemSelected(menuItem)
+           val menuId : Int = savedInstanceState.getInt("navId")
+           LOG.warning("In SavedInstanceState not null ID =: " + menuId )
+           val menuItem = navigationView.menu.findItem(menuId) as MenuItem
+           onNavigationItemSelected(menuItem)
         }
     }
 
@@ -59,9 +63,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.action_settings ->{
 
@@ -74,8 +75,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         sNavId = item.itemId
+        LOG.warning("In NavItem Selected ID = : " + sNavId)
         return navSelect()
-
     }
 
     private fun navSelect(): Boolean{
@@ -84,23 +85,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (sNavId) {
             0, R.id.nav_basic_calculater -> {
                 nav_view.setCheckedItem(R.id.nav_basic_calculater)
+                LOG.warning("Nav Select ID = : " + sNavId)
                 fragment = BasicFragment()
                 title = "Basic Calculator"
             }
             R.id.nav_status -> {
                 nav_view.setCheckedItem(R.id.nav_status)
+                LOG.warning("Nav Select ID = : " + sNavId)
                 fragment = StatusFragment()
                 title = getString(R.string.nav_drawer_status)
             }
             R.id.nav_income -> {
                 nav_view.setCheckedItem(R.id.nav_income)
+                LOG.warning("Nav Select ID = : " + sNavId)
                 fragment = IncomeFragment()
                 title = getString(R.string.nav_drawer_income)
             }
             R.id.nav_benefit -> {
                 nav_view.setCheckedItem(R.id.nav_benefit)
                 fragment = BenefitFragment()
-
+                LOG.warning("Nav Select ID = : " + sNavId)
                 title = getString(R.string.nav_drawer_benefits)
             }
         }
@@ -114,6 +118,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putInt("navId", sNavId)
+        LOG.warning("SavingInstance State ID = : " + sNavId)
     }
 
     override fun onStop() {
@@ -121,15 +126,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val b = Bundle()
         b.putInt("navId", sNavId)
         intent.putExtras(b)
-
-
     }
 
     override fun onResume() {
         super.onResume()
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         val b = intent.extras
-
 
         if (b != null){
             val navId = b.getInt("navId")
@@ -142,6 +144,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     companion object {
         var sNavId : Int = 0
+        val LOG = Logger.getLogger(MainActivity::class.java.name)
+        var sCalc = Calculation()
     }
 
 }

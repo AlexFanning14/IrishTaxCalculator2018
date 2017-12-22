@@ -13,15 +13,30 @@ import kotlin.collections.HashMap
 /**
  * Created by alex.fanning on 16/11/2017.
  */
-data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val marStatus: MaritalStatus,
-                       val ageStatus: AgeStatus, val hasMedCard: Boolean) : Parcelable {
+class Calculation() : Parcelable {
 
+    constructor(_grossPay: Int, _emplStatus: EmploymentStatus, _marStatus: MaritalStatus,
+                _ageStatus: AgeStatus, _hasMedCard: Boolean ) :this() {
+        grossPay = _grossPay
+        emplStatus = _emplStatus
+        marStatus = _marStatus
+        ageStatus = _ageStatus
+        hasMedCard = _hasMedCard
+    }
     constructor(grossPay: Int, emplStatus: EmploymentStatus, marStatus: MaritalStatus,
                 ageStatus: AgeStatus, hasMedCard: Boolean, _spouseEmploymentStatus: EmploymentStatus,
                 _spouseSal: Int) : this(grossPay, emplStatus, marStatus, ageStatus, hasMedCard) {
         spouseEmploymentStatus = _spouseEmploymentStatus
         spouseSal = _spouseSal
     }
+
+
+    var grossPay: Int = 0
+    //Default Enum Vals
+    var emplStatus: EmploymentStatus = EmploymentStatus.SELF_EMPLOYED
+    var marStatus: MaritalStatus = MaritalStatus.SINGLE
+    var ageStatus: AgeStatus = AgeStatus.UNDER_65
+    var hasMedCard= false
 
     var incomeTax: Int = 0
     var PRSI: Int = 0
@@ -72,8 +87,6 @@ data class Calculation(val grossPay: Int, val emplStatus: EmploymentStatus, val 
         }
 
         calculatePrsiAndUsc()
-
-
 
         incomeTax -= taxCreditTotal
 

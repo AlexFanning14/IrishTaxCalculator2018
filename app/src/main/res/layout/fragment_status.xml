@@ -1,87 +1,112 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.alexfanning.irishtaxcalculator2018.fragments.StatusFragment">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.example.alexfanning.irishtaxcalculator2018.fragments.BasicFragment">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/advanced_spinner_worker_status"
+            android:layout_width="match_parent"
+            android:background="@drawable/border_tv"
+            android:layout_height="@dimen/basic_item_height"
+            android:layout_gravity="center"
+            />
+
+        <Spinner
+            android:id="@+id/advanced_spinner_marital_status"
+            android:layout_width="match_parent"
+            android:background="@drawable/border_tv"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center" />
+
+        <Spinner
+            android:id="@+id/advanced_spinner_worker_status_spouse"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:background="@drawable/border_tv"
+            android:gravity="center"
+            android:visibility="gone" />
+        <Spinner
+            android:id="@+id/advanced_spinner_age"
+            android:layout_width="match_parent"
+            android:background="@drawable/border_tv"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center" />
+
+        <Spinner
+            android:id="@+id/advanced_spinner_age_spouse"
+            android:layout_width="match_parent"
+            android:background="@drawable/border_tv"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center" />
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
 
             <TextView
-                android:layout_width="0dp"
-                android:gravity="center"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Status:"
-                />
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Are you a primary carer for children?" />
 
-            <Spinner
-                android:layout_width="0dp"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/spinner_status" />
+            <CheckBox
+                android:id="@+id/advanced_chk_box_children"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
 
-        <EditText
+
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
             android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Do you have a full medical card?" />
+
+            <CheckBox
+                android:id="@+id/advanced_chk_box_med_card"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_status_next"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Annual Gross Salary"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:hint="Annual Pension Contribution"
-            />
-        
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Age Attained during 2017"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Age Attained during 2017"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Spouse's Age Attained during 2017"
-            android:visibility="gone"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="Spouse's Annual Salary"
-            android:visibility="gone"
-            />
-
-
-
-
-
-
-
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_arrow_forward_white_24dp"
+            app:backgroundTint="@color/colorAccent"
+            app:borderWidth="0dp"
+            app:elevation="6dp"
+            app:fabSize="normal"
+            app:pressedTranslationZ="12dp" />
 
     </LinearLayout>
 
-</FrameLayout>
+</ScrollView>

@@ -51,6 +51,14 @@
         <item>70+</item>
         <item>Select Age ▼</item>
     </string-array>
+    <string-array name="spinner_age_array_spouse">
+        <item>Under 65</item>
+        <item>65</item>
+        <item>66-69</item>
+        <item>70+</item>
+        <item>Select Spouse Age ▼</item>
+    </string-array>
+
 
 
     <string-array name="spinner_children_array">

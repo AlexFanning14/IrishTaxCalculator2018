@@ -1,13 +1,135 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.alexfanning.irishtaxcalculator2018.fragments.IncomeFragment">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.example.alexfanning.irishtaxcalculator2018.fragments.BasicFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/nav_drawer_income" />
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <EditText
+            android:id="@+id/advanced_et_income"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            style="@style/CustomTextViewStyleNormal"
+            android:background="@drawable/border_tv"
+            android:gravity="center"
+            android:hint="Annual Salary?" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Have you made a pension contribution?" />
+
+            <CheckBox
+                android:id="@+id/advanced_chk_box_pension"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/advanced_et_pension"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            style="@style/CustomTextViewStyleNormal"
+            android:background="@drawable/border_tv"
+            android:gravity="center"
+            android:hint="How Much did you pay?" />
+
+        <EditText
+            android:id="@+id/advanced_et_spouse_income"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            style="@style/CustomTextViewStyleNormal"
+            android:background="@drawable/border_tv"
+            android:gravity="center"
+            android:hint="Spouse Sal?" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            android:gravity="center"
+            android:background="@drawable/border_tv"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/CustomTextViewStyleNormal"
+                android:text="Do you employ a carer?" />
+
+            <CheckBox
+                android:id="@+id/advanced_chk_box_carer"
+                android:layout_width="wrap_content"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/advanced_et_carer_pay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/basic_item_height"
+            style="@style/CustomTextViewStyleNormal"
+            android:background="@drawable/border_tv"
+            android:gravity="center"
+            android:hint="If So how much do you pay?" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                app:backgroundTint="@color/colorAccent"
+                app:borderWidth="0dp"
+                app:elevation="6dp"
+                app:fabSize="normal"
+                app:pressedTranslationZ="12dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_income_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:layout_marginLeft="200dp"
+                android:src="@drawable/ic_arrow_forward_white_24dp"
+                app:backgroundTint="@color/colorAccent"
+                app:borderWidth="0dp"
+                app:elevation="6dp"
+                app:fabSize="normal"
+                app:pressedTranslationZ="12dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>

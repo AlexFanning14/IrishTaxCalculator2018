@@ -68,7 +68,6 @@ class BasicFragment : Fragment() {
             et.text.clear()
         else if (str.isNotEmpty())
             et.setText(str.formatResult())
-
     }
 
     private fun completeCalculation(){
